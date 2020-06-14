@@ -1,4 +1,4 @@
-import winsound
+from playsound import playsound 
 import datetime
 
 def plus_one(minute):
