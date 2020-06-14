@@ -29,8 +29,8 @@ print(f"Timer set for {delay} minutes\n")
 num = 0
 while True:
     timer(delay)
-    winsound.PlaySound("Rick.wav", winsound.SND_ASYNC)
+    playsound("Rick.wav")
     num+=1
     conf = input(f"{num}) Enter Y/y after you're done drinking water(!): ")
     if conf == 'Y' or conf == 'y':
-      	winsound.PlaySound(None, winsound.SND_ASYNC) 
+      	playsound.PlaySound(None) 
