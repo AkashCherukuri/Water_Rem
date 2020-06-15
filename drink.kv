@@ -1,0 +1,69 @@
+<AppGrid>
+
+	goal : goal
+	quantity : quantity
+	progress : progress
+
+	canvas:
+		Color:
+			rgba: 0.4,0.4,0,1 
+		Rectangle: 
+			pos: self.pos 
+			size: self.size 
+	GridLayout:
+		size: root.width,root.height
+		cols:1
+		Label:
+			text: "Today's Progress:"
+			font_size:"30sp"
+		Label:
+			id: progress
+			text: "0%"
+			font_size: "70sp"
+		ProgressBar: 
+			id: goal	#########
+			value: 0
+			min: 0
+			max: 7000
+
+		Button:
+			font_size:"30sp"
+			text: "History"
+
+		GridLayout:
+			cols: 4
+			Label:
+				font_size:"30sp"
+				text: "Quantity: " 
+			Label:
+				text: '0 ml'
+				color: 0,1,0,1
+				font_size: "20sp"
+			Slider:
+				id: quantity ###########################
+        		orientation: "horizontal"
+        		min: 0
+        		max: 1000
+        		value: 0
+        		step: 50
+        		on_value:label2.text = str(int(self.value)) 
+        	Label:
+        		text: '1000 ml'
+        		color: 1,0,1,1
+        		font_size: "20sp"
+
+        GridLayout:
+        	cols: 2
+			Button:
+				font_size:"30sp"
+				text:"Add!"
+				border: 25,25,25,25
+				background_color: 0, 0, 0.5, 1
+				size : 40,500
+				on_press: root.pressed()
+				#root refers to main widget
+			Label:
+				font_size:"30sp"
+				id: label2 
+		        font_size: "30sp"
+		        color: 0, 1, 1, 1
