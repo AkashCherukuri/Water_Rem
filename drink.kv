@@ -1,7 +1,9 @@
 <Button>:
-	font_size:"30sp"
-	border: 25,25,25,25
+	font_size: 30
+	border: 0.25,0.95,0.25,0.95 # top,right,down,left
 	background_color: 0.2, 0.2, 0.2, 1
+<Label>:
+	# font_size:0.2*root.height if root.width>root.height else 0.2*root.width
 
 Manager:
 	MainScreen:
@@ -13,6 +15,7 @@ Manager:
 	goal : goal
 	quantity : quantity
 	progress : progress
+	
 
 	canvas:
 		Color:
@@ -23,13 +26,24 @@ Manager:
 	GridLayout:
 		size: root.width,root.height
 		cols:1
-		Label:
-			text: "Today's Progress:"
-			font_size:"30sp"
+		FloatLayout:
+			Label:
+				text: "Today's Progress:"
+				font_size:"30sp"
+				pos_hint: {"x":0, "top":1} 
+			Button:
+				text: ""
+				background_normal : 'icon.png' 
+                pos_hint: {"x":0.925, "top":1} 
+                size_hint: root.width/15000,root.height/2000
+                background_color: 1,1,1,1
+				on_release:
+					app.root.current = "settings"
+					root.manager.transition.direction = "left"
 		Label:
 			id: progress
 			text: "0%"
-			font_size: "70sp"
+			font_size: 70
 		ProgressBar: 
 			id: goal	#########
 			value: 0
@@ -55,37 +69,57 @@ Manager:
         		max: 1000
         		value: 0
         		step: 50
-        		on_value:label2.text = str(int(self.value)) 
+        		on_value: label2.text = str(int(self.value)) 
         	Label:
         		text: '1000 ml'
         		color: 1,0,1,1
         		font_size: "20sp"
 
         GridLayout:
-        	cols: 3
+        	cols: 2
 			Button:
 				text:"Add!"
 				size : 40,500
 				on_press: root.pressed()
 				#root refers to main widget
-			Button:
-				text:"Settings"
-				size : 40,500
-				on_release:
-					app.root.current = "settings"
-					root.manager.transition.direction = "up"
 				
 			Label:
-				font_size:"30sp"
 				id: label2 
 		        font_size: "30sp"
 		        color: 0, 1, 1, 1
 
 <SetScreen>
+	minutes : minutes
+	minutes_saved : minutes_saved
 	name: "settings"
-	Button:
-		text: "Go back"
-		on_release:
-			app.root.current = "progress"
-			root.manager.transition.direction = "down"
+	GridLayout:
+		cols:1
+		GridLayout:
+			cols:3
+			Label :
+				text: 'Remind every'
+				size_hint_y:0.2
+			TextInput:
+				id: minutes
+				hint_text: 'Enter a number'
+				background_color: 0.2,0.2,0.2,1
+				foreground_color:1,1,1,1
+				color: 1,1,1,1
+				hint_text_color : [1,1,1,1]
+				input_filter : 'int'
+				multiline : False
+				on_text_validate: root.new_setting()			
+			Label:
+				text: 'mins.'
+				size_hint_y:0.2
+		Label:
+			id : minutes_saved
+			font_size : "25sp"
+			text:""
+		Button:
+			text: "Go back"
+			on_release:
+				minutes_saved.text = ""
+				app.root.current = "progress"
+				root.manager.transition.direction = "right"
 			
