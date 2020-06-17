@@ -6,6 +6,14 @@
 <Label>:
 	font_size: "30sp"
 
+<TextInput>:
+	background_color: 0.2, 0.2, 0.2, 1
+	foreground_color: 1, 1, 1, 1 
+	cursor_color: 1, 1, 1, 1
+	font_size: "30sp"
+	halign: "center"
+	valign: "center"
+
 Manager:
 	MainScreen:
 	SetScreen:
@@ -91,8 +99,7 @@ Manager:
 
 <SetScreen>
 	name: "settings"
-	#alarm_time: alarm_time
-	
+		
 	GridLayout:
 		
 		cols: 1
@@ -110,12 +117,9 @@ Manager:
 			Label:
 				text: "Never gonna give you up"
 			
-			Label:
-				text: "Change Alarm Intervals:"
-			
-			Button:
-				text:
-			
+		Button:
+			text: "Press to change alarm intervals"
+			on_release: root.alarm_btn()
 			
 	
 		Button:
@@ -123,4 +127,28 @@ Manager:
 			on_release:
 				app.root.current = "progress"
 				root.manager.transition.direction = "down"
+
+<Alarm_Popup>:
+	alarm_in: alarm_in
+	
+	Label: 
+        text: "Enter Alarm Interval:"
+        size_hint: 0.6, 0.2
+        pos_hint: {"x": 0, "top":0.95} 
+  
+  
+	TextInput:
+		id: alarm_in
+		multiline: False
+		size_hint: 0.35, 0.2
+		pos_hint: {"right": 0.9, "top": 0.95}
+		input_filter: "int"
+		padding_y: 14
+		
+	Button:
+		text: "Save"
+		size_hint: 0.4, 0.2
+		pos_hint: {"x": 0.3, "y": 0.1}
+		on_release: root.save_alarm()
+		
 			
