@@ -1,7 +1,10 @@
 <Button>:
 	font_size:"30sp"
-	border: 25,25,25,25
+	border: 0.5, 0.5, 0.5, 0.5
 	background_color: 0.2, 0.2, 0.2, 1
+
+<Label>:
+	font_size: "30sp"
 
 Manager:
 	MainScreen:
@@ -16,16 +19,24 @@ Manager:
 
 	canvas:
 		Color:
-			rgba: 0.05,0.05,0.05,1 
+			rgba: 0.05, 0.05, 0.05 ,1 
 		Rectangle: 
 			pos: self.pos 
 			size: self.size 
 	GridLayout:
 		size: root.width,root.height
 		cols:1
-		Label:
-			text: "Today's Progress:"
-			font_size:"30sp"
+		FloatLayout:
+			Label:
+				text: "Today's Progress:"
+				pos_hint: {"x" : 0, "top" : 1}
+			Button:
+				text: ""
+				background_normal:'exit.png'
+				pos_hint: {"right" : 1, "top" : 1}
+				size: root.width/20, root.width/20
+				size_hint: None, None
+				on_release: app.stop()
 		Label:
 			id: progress
 			text: "0%"
@@ -42,7 +53,6 @@ Manager:
 		GridLayout:
 			cols: 4
 			Label:
-				font_size:"30sp"
 				text: "Quantity: " 
 			Label:
 				text: '0 ml'
@@ -76,16 +86,41 @@ Manager:
 					root.manager.transition.direction = "up"
 				
 			Label:
-				font_size:"30sp"
 				id: label2 
-		        font_size: "30sp"
 		        color: 0, 1, 1, 1
 
 <SetScreen>
 	name: "settings"
-	Button:
-		text: "Go back"
-		on_release:
-			app.root.current = "progress"
-			root.manager.transition.direction = "down"
+	#alarm_time: alarm_time
+	
+	GridLayout:
+		
+		cols: 1
+		
+		Label:
+			text: "Settings"
+			font_size: "40sp"
+		
+		GridLayout:
+			cols: 2
+			
+			Label:
+				text: "Song used as Alarm:"
+			#Will Make this a drop down list of available songs later
+			Label:
+				text: "Never gonna give you up"
+			
+			Label:
+				text: "Change Alarm Intervals:"
+			
+			Button:
+				text:
+			
+			
+	
+		Button:
+			text: "Go back"
+			on_release:
+				app.root.current = "progress"
+				root.manager.transition.direction = "down"
 			
