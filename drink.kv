@@ -1,7 +1,7 @@
 <Button>:
 	font_size: 30
 	border: 0.25,0.95,0.25,0.95 # top,right,down,left
-	background_color: 0.2, 0.2, 0.2, 1
+	# background_color: 0.2, 0.2, 0.2, 1
 <Label>:
 	# font_size:0.2*root.height if root.width>root.height else 0.2*root.width
 
@@ -66,15 +66,15 @@ Manager:
 				text: "Today's Progress:"
 				font_size:"30sp"
 				pos_hint: {"x":0, "top":1} 
-			Button:
-				text: ""
-				background_normal : 'icon.png' 
-                pos_hint: {"x":0.925, "top":1} 
-                size_hint: root.width/15000,root.height/2000
-                background_color: 1,1,1,1
-				on_release:
-					app.root.current = "settings"
-					root.manager.transition.direction = "left"
+			# Button:
+			# 	text: ""
+			# 	background_normal : 'icon.png' 
+   #              pos_hint: {"x":0.925, "top":1} 
+   #              size_hint: root.width/15000,root.height/2000
+   #              background_color: 1,1,1,1
+			# 	on_release:
+			# 		app.root.current = "settings"
+			# 		root.manager.transition.direction = "left"
 		Label:
 			id: progress
 			text: "0%"
@@ -122,6 +122,23 @@ Manager:
 				id: label2 
 		        font_size: "30sp"
 		        color: 0, 1, 1, 1
+		FloatLayout:
+			Button:
+				background_normal : 'Icons/timer.png'
+				size_hint: root.width/15000,root.height/2000
+				pos_hint: {"x":0.2, "top":0.5} 
+			Button:
+				background_normal : 'Icons/music.png'
+				size_hint: root.width/15000,root.height/2000
+				pos_hint: {"x":0.4, "top":0.5} 
+			Button:
+				background_normal : 'Icons/switch.png'
+				size_hint: root.width/15000,root.height/2000
+				pos_hint: {"x":0.6, "top":0.5} 
+			Button:
+				background_normal : 'Icons/settings.png'
+				size_hint: root.width/15000,root.height/2000
+				pos_hint: {"x":0.8, "top":0.5} 
 
 <SetScreen>
 	minutes : minutes
