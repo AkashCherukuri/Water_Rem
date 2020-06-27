@@ -2,47 +2,16 @@ from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.boxlayout import BoxLayout 
 from kivy.uix.screenmanager import Screen, ScreenManager
-from functools import partial
-from kivy.clock import Clock
+from Water import alarm
+import easygui
 
-# def alarm():
-class Popup1(GridLayout): 
-	def __init__(self):
-		GridLayout.__init__(self)
-		self.cols = 1
-
-	def select_song(self):
-		popupWindow = Popup(title ="Select Song", content = Popup2(), 
-		                size_hint =(None, None), size =(400, 400))
-		popupWindow.open()
-
-class Popup2(GridLayout): 
-	def __init__(self):
-		GridLayout.__init__(self)
-		self.cols = 1
-
-	def select_file(self):
-		popupWindow = Popup(title ="Select Song", content = Filechooser(), 
-		                size_hint =(None, None), size =(600, 1000))
-		popupWindow.open()
-
-class Filechooser(GridLayout): 
-    def selected(self, filename):
-        try:
-            self.ids.Yu.text = str(filename[0])
-        except:
-            pass
+time,tune = 1,'Rick.wav'
 
 def select_time():
 	popupWindow = Popup(title ="Select Time", content = Popup1(), 
 	                size_hint =(None, None), size =(400, 400))
 	popupWindow.open()
-
-
-
-
 
 class SetScreen(Screen):
 	minutes = ObjectProperty(None)
@@ -51,6 +20,18 @@ class SetScreen(Screen):
 	def new_setting(self):
 		# Clock.schedule_interval(partial(alarm), minutes)
 		self.minutes_saved.text = 'You will be reminded every '+str(self.minutes.text)+' mins.'
+	def select_song(self):
+		tune = easygui.fileopenbox()
+		file = tune.split('/')[-1].split('.')[1]
+		if file in ['mp3','mp4','wav']:
+			self.tune_saved.text = tune.split('/')[-1]+ ' will be used to remind you.'
+		else:
+			self.tune_saved.text = "Select a valid audio file!"			
+		# print()
+
+	def start(self):
+		alarm(int(self.minutes.text), tune)
+
 
 class Manager(ScreenManager):
 	pass
@@ -61,7 +42,7 @@ class MainScreen(Screen):
 	progress = ObjectProperty(None)
 
 	def pressed(self):
-		select_time()
+		# select_time()
 		self.goal.value+= int(self.quantity.value)
 		self.quantity.value = 0
 		self.progress.text = str(int(self.goal.value*100//7000))+'%'
