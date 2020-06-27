@@ -1,4 +1,3 @@
-import pickle
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ObjectProperty
@@ -22,7 +21,6 @@ class MainScreen(Screen):
 		print(self.goal.value)
 
 class SetScreen(Screen):
-	#alarm_time = ObjectProperty(None)
 	def alarm_btn(self):
 		return set_alarm_popup()
 
