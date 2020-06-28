@@ -1,0 +1,145 @@
+<Button>:
+	font_size: 30
+	border: 0.25,0.95,0.25,0.95 # top,right,down,left
+<TextInput>:
+	background_color: 0.2, 0.2, 0.2, 1
+	foreground_color: 1, 1, 1, 1 
+	cursor_color: 1, 1, 1, 1
+	font_size: "30sp"
+	halign: "center"
+	valign: "center"
+
+Manager:
+	MainScreen:
+	SetScreen:
+
+<MainScreen>
+	name: "progress"
+	goal : goal
+	quantity : quantity
+	progress : progress
+	canvas:
+		Color:
+			rgba: 0.05,0.05,0.05,1 
+		Rectangle: 
+			pos: self.pos 
+			size: self.size 
+
+	GridLayout:
+		size: root.width,root.height
+		cols:1
+		Label:
+			text: "Today's Progress:"
+			font_size:"30sp"
+			pos_hint: {"x":0, "top":1} 
+		Label:
+			id: progress
+			text: "0%"
+			font_size: 70
+		ProgressBar: 
+			id: goal
+			value: 0
+			min: 0
+			max: 7000
+		GridLayout:
+			cols: 4
+			Label:
+				font_size:"30sp"
+				text: "Quantity: " 
+			Label:
+				text: '0 ml'
+				color: 0,1,0,1
+				font_size: "20sp"
+			Slider:
+				id: quantity
+        		orientation: "horizontal"
+        		min: 0
+        		max: 1000
+        		value: 0
+        		step: 50
+        		on_value: label2.text = str(int(self.value)) 
+        	Label:
+        		text: '1000 ml'
+        		color: 1,0,1,1
+        		font_size: "20sp"
+
+        GridLayout:
+        	cols: 2
+			Button:
+				text:"Add!"
+				size : 40,500
+				on_press: root.pressed()
+			Label:
+				id: label2 
+		        font_size: "30sp"
+		        color: 0, 1, 1, 1
+		FloatLayout:
+			Button:
+				background_normal : 'Icons/history.png'
+				size_hint: 0.06,0.35
+				pos_hint: {"x":0.2, "top":0.4} 
+			Button:
+				background_normal : 'Icons/settings.png'
+				size_hint: 0.06,0.35
+				pos_hint: {"x":0.5, "top":0.4} 
+				on_release:
+					app.root.current = "settings"
+					root.manager.transition.direction = "up"
+			Button:
+				background_normal : 'Icons/switch.png'
+				size_hint: 0.06,0.35
+				pos_hint: {"x":0.8, "top":0.4} 
+
+<SetScreen>
+	tune_saved : tune_saved
+	name: "settings"
+	GridLayout:
+		cols:1
+		Label:
+			text: "Settings"
+			font_size: "40sp"
+		Button:
+			text: 'Select song'
+			on_press: root.select_song()
+		Label:
+			id : tune_saved
+			font_size: "25sp"
+			text:""
+		Button:
+			text: "Press to change alarm intervals"
+			on_release: root.alarm_btn()
+		Button:
+			text: "Go back"
+			on_release:
+				tune_saved.text = ""
+				app.root.current = "progress"
+				root.manager.transition.direction = "down"
+			
+<Alarm_Popup>:
+	alarm_in: alarm_in
+	time_saved: time_saved
+	Label: 
+        text: "Enter Alarm Interval:"
+        size_hint: 0.6, 0.2
+        pos_hint: {"x": 0, "top":0.95} 
+  
+  
+	TextInput:
+		id: alarm_in
+		multiline: False
+		size_hint: 0.35, 0.2
+		pos_hint: {"right": 0.9, "top": 0.95}
+		input_filter: "int"
+		padding_y: 14
+	Label:
+		id: time_saved
+		text: ""
+		pos_hint: {"x": 0.3, "y": 0.3}
+		size_hint: 0.4, 0.2
+		font_size: "25sp"
+
+	Button:
+		text: "Save"
+		size_hint: 0.4, 0.2
+		pos_hint: {"x": 0.3, "y": 0.1}
+		on_release: root.save_alarm()
