@@ -3,6 +3,9 @@ from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen, ScreenManager
 import easygui
 from Popups.SetAlarm import *
+from timer import Timer
+
+
 
 class SetScreen(Screen):
 
@@ -21,14 +24,14 @@ class SetScreen(Screen):
 	def alarm_btn(self):
 		return set_alarm_popup()
 
-
 class Manager(ScreenManager):
-	pass
+	mainScreen = ObjectProperty(None)
+	setScreen = ObjectProperty(None)
 
 class MainScreen(Screen):
 	goal = ObjectProperty(None)
 	quantity = ObjectProperty(None)
-	progress = ObjectProperty(None)
+	progress = ObjectProperty(None)		
 
 	def pressed(self):
 		# select_time()
@@ -38,7 +41,9 @@ class MainScreen(Screen):
                 
 class Drink(App):
 	def build(self):
-		return
+		self.timer = Timer()
+		self.timer.Start_Alarm()
+		return Manager()
 
 
 if __name__ == '__main__':

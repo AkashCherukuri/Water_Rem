@@ -9,12 +9,20 @@
 	halign: "center"
 	valign: "center"
 
-Manager:
+<Manager>
+	id : screen_manager
+	mainScreen : MainScreen
+	setScreen : SetScreen	
 	MainScreen:
-	SetScreen:
+        id: MainScreen
+        name: "progress"
+        manager: screen_manager
+    SetScreen: 
+		id: SetScreen
+		name:"settings"
+		manager: screen_manager
 
 <MainScreen>
-	name: "progress"
 	goal : goal
 	quantity : quantity
 	progress : progress
@@ -92,7 +100,6 @@ Manager:
 
 <SetScreen>
 	tune_saved : tune_saved
-	name: "settings"
 	GridLayout:
 		cols:1
 		Label:
@@ -143,3 +150,30 @@ Manager:
 		size_hint: 0.4, 0.2
 		pos_hint: {"x": 0.3, "y": 0.1}
 		on_release: root.save_alarm()
+
+<Alarm>:
+	cols: 1
+	Label:
+		text: "Include a fun fact here"
+		font_size: "30sp"
+
+	Label:
+		text: "Select amount of water"
+		font_size:"30sp"
+	FloatLayout:
+		Button:
+			background_normal : 'Icons/half.png'
+			size_hint: 0.1,0.55
+			pos_hint: {"x":0.3, "y":0.2} 
+			on_press : 
+				app.root.mainScreen.quantity.value = 200
+				app.root.mainScreen.pressed()
+				root.stop()
+		Button:
+			background_normal : 'Icons/full.png'
+			size_hint: 0.1,0.55
+			pos_hint: {"x":0.7, "y":0.2}
+			on_press :
+				app.root.mainScreen.quantity.value = 400
+				app.root.mainScreen.pressed()
+				root.stop() 
