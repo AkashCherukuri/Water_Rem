@@ -1,2 +1,2 @@
-# Water_Rem
-This is our first attempt at a computer application, and this aims to remind the user to drink water at a given interval of time
+# ReHydration Assistant
+This is a Kivy Based Application developed during the Summer of 2020, created as a learning experience.
